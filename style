@@ -28,22 +28,7 @@ card height: 523
 card dpi: 150
 ############################################################## Extra scripts
 init script:
-	color := {
-		if card.card_color=="white" then "w"
-		else if card.card_color=="blue" then "u"
-		else if card.card_color=="black" then "b"
-		else if card.card_color=="red" then "r"
-		else if card.card_color=="green" then "g"
-		else "c"
-	}
-
-	formcard_frame := { "frames/form_" + color() + ".png" }
-
-	formcard_power := { "pou/power_" + color() + ".png" }
-
-	formcard_overwhelm := { "pou/overwhelm_" + color() + ".png" }
-
-	formcard_uses := { "pou/uses_" + color() + ".png" }
+	include file: scripts
 
 
 
@@ -438,7 +423,7 @@ extra card style:
 		z index: 1
 		visible: true
 		render style: image
-		image: { formcard_power() }
+		image: { formcard_pou(attr: "power") }
 
 	overwhelm box:
 		left: 266
@@ -448,7 +433,7 @@ extra card style:
 		z index: 1
 		visible: true
 		render style: image
-		image: { formcard_overwhelm() }
+		image: { formcard_pou(attr: "overwhelm") }
 
 	uses box:
 		left: 311
@@ -458,5 +443,5 @@ extra card style:
 		z index: 1
 		visible: true
 		render style: image
-		image: { formcard_uses() }
+		image: { formcard_pou(attr: "uses") }
 

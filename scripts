@@ -1,0 +1,59 @@
+form := { "frames/form_" + input + ".png" }
+
+# color() always returns a color, even if the card is colorless
+# color() returns "c" for colorless, "m" for multicolor(> 2 colors), "w" for white, "u" for blue, "b" for black, "r" for red, and "g" for green
+color := {
+    colors := sort_text(
+        order: "(wubrg)",
+        (if chosen(choice:"white") or card.card_color=="white" then "w") +
+        (if chosen(choice:"blue") or card.card_color=="blue" then "u") +
+        (if chosen(choice:"black") or card.card_color=="black" then "b") +
+        (if chosen(choice:"red") or card.card_color=="red" then "r") +
+        (if chosen(choice:"green") or card.card_color=="green" then "g")
+    )
+    if colors == "" then colors := "c"
+    colors
+}
+
+# formcard_frame() decides the frame for the card or if a blend is needed
+formcard_frame := {
+	colors := color()
+	color_count := number_of_items(in: colors)
+	if color_count == 2 then (
+        # Blend the two color frames horizontally (adjust coordinates as needed)
+        linear_blend(
+            image1: form( colors[0] ),
+            image2: form( colors[1] ),
+            x1: 0.4,	y1: 0
+			x2: 0.6,	y2: 0
+        )
+    ) else (
+		if colors == "c" and chosen(choice:"artifact") then (
+			colors := "a"
+		)
+		else if color_count >= 3 then (
+			colors := "m"
+		)
+		form( colors )
+	)
+
+}
+
+# formcard_pou() decides the color for the power, overwhelm, and uses arguments.
+formcard_pou := { 
+	colors := color()
+	color_count := number_of_items(in: colors)
+	color := "m"
+	if color_count == 1 then (
+		color := colors
+	)
+	else if number_of_items(in: colors) == 2 then (
+		color := "c"
+	)
+
+	# artifact always has priority for pou
+	if chosen(choice:"artifact") then (
+		color := "a"
+	)
+	"pou/" + attr + "_" + color + ".png"
+}@(attr:"power")
