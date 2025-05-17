@@ -59,27 +59,27 @@ formcard_pou := {
 	"pou/" + attr + "_" + color + ".png"
 }@(attr:"power")
 
-# card_trim() decides the trim for the card or if a blend is needed
-card_trim := {
+# card_pin_line() decides the trim for the card or if a blend is needed
+card_pin_line := {
     colors := color()
     color_count := number_of_items(in: colors)
 	if chosen(choice:"m") then (
-		trim_image := trim( "m" )
+		pin_line_image := trim( "m" )
 	)
 
 	if colors == "c" and chosen(choice:"artifact") and not chosen(choice:"multicolor") then (
-        trim_image := trim( "a" )
+        pin_line_image := trim( "a" )
     ) else if color_count == 1 then (
-        trim_image := trim( colors )
+        pin_line_image := trim( colors )
     ) else if color_count == 2 then (
-        trim_image := linear_blend(
+        pin_line_image := linear_blend(
             image1: trim( colors[0] ),
             image2: trim( colors[1] ),
             x1: 0.4,	y1: 0
 			x2: 0.6,	y2: 0
         )
     ) else if color_count == 3 then (
-		trim_image := linear_blend(
+		pin_line_image := linear_blend(
 			image1: linear_blend(
 				image1: trim(colors[0]),
 				image2: trim(colors[1]),
@@ -91,7 +91,7 @@ card_trim := {
 			x2: 1.0, y2: 0
 		)
 	) else if color_count == 4 then (
-		trim_image := linear_blend(
+		pin_line_image := linear_blend(
 			image1: linear_blend(
 				image1: trim(colors[0]),
 				image2: trim(colors[1]),
@@ -108,7 +108,7 @@ card_trim := {
 			x2: 0.66, y2: 0
 		)
 	) else if color_count == 5 then (
-		trim_image := linear_blend(
+		pin_line_image := linear_blend(
 			image1: linear_blend(
 				image1: linear_blend(
 					image1: trim(colors[0]),
@@ -130,7 +130,7 @@ card_trim := {
 			x2: 1.0, y2: 0
 		)
 	) else (
-        trim_image := trim( colors )
+        pin_line_image := trim( colors )
     )
-	trim_image
+	pin_line_image
 }

@@ -363,7 +363,7 @@ extra card field:
 	save value: false
 extra card field:
 	type: choice
-	name: card trim
+	name: card pin
 	script: card.card_color
 	editable: false
 	save value: false
@@ -450,7 +450,7 @@ extra card style:
 		visible: true
 		render style: image
 		image: { formcard_pou(attr: "uses") }
-	card trim:
+	card pin:
 		left: 0
 		top: 0
 		width: 375
@@ -458,6 +458,6 @@ extra card style:
 		z index: 1
 		visible: true
 		render style: image
-		image: { card_trim() }
-		mask: trim_mask.png
+		image: { card_pin_line() }
+		mask: pin_line.png
 
