@@ -313,6 +313,8 @@ card style:
 		alignment: middle center
 		include file:	/magic.mse-game/watermarks/menu_choice_images
 		image:			{ watermark_image_1() }
+	
+
 ############################################################## Extra card fields
 extra card field:
 	type: choice
@@ -359,6 +361,12 @@ extra card field:
 	script: card.card_color
 	editable: false
 	save value: false
+extra card field:
+	type: choice
+	name: card trim
+	script: card.card_color
+	editable: false
+	save value: false
 
 extra card style:
 	foil layer:
@@ -375,12 +383,12 @@ extra card style:
 		top: 471
 		width: 56
 		height: 26
-		z index: 1
+		z index: 2
 		visible: { card.card_stamp != "none" }
 		render style: image
 		image: { if stamp_shape() == "triangle" then module_ubstamp() else module_stamp() }
 	pow:
-		z index: 2
+		z index: 3
 		left: 225
 		top: 468
 		width: 30
@@ -404,7 +412,7 @@ extra card style:
 			color: black
 			separator color: red
 	uses:
-		z index: 4
+		z index: 3
 		left: 316
 		top: 468
 		width: 30
@@ -420,28 +428,36 @@ extra card style:
 		top: 460
 		width: 41
 		height: 41
-		z index: 1
+		z index: 2
 		visible: true
 		render style: image
 		image: { formcard_pou(attr: "power") }
-
 	overwhelm box:
 		left: 266
 		top: 464
 		width: 42
 		height: 42
-		z index: 1
+		z index: 2
 		visible: true
 		render style: image
 		image: { formcard_pou(attr: "overwhelm") }
-
 	uses box:
 		left: 311
 		top: 462
 		width: 39
 		height: 39
-		z index: 1
+		z index: 2
 		visible: true
 		render style: image
 		image: { formcard_pou(attr: "uses") }
+	card trim:
+		left: 0
+		top: 0
+		width: 375
+		height: 523
+		z index: 1
+		visible: true
+		render style: image
+		image: { card_trim() }
+		mask: trim_mask.png
 
