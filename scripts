@@ -1,5 +1,5 @@
 form := { "frames/form_" + input + ".png" }
-trim := { "trims/" + input + ".jpg" }
+pinline := { "pinlines/" + input + ".jpg" }
 
 # color() always returns a color, even if the card is colorless
 # color() returns "c" for colorless, "m" for multicolor(> 2 colors), "w" for white, "u" for blue, "b" for black, "r" for red, and "g" for green
@@ -59,48 +59,48 @@ formcard_pou := {
 	"pou/" + attr + "_" + color + ".png"
 }@(attr:"power")
 
-# card_pin_line() decides the trim for the card or if a blend is needed
+# card_pin_line() decides the pinline for the card or if a blend is needed
 card_pin_line := {
     colors := color()
     color_count := number_of_items(in: colors)
-	if chosen(choice:"m") then (
-		pin_line_image := trim( "m" )
-	)
+	pin_line_image := pinline( "m" )
 
 	if colors == "c" and chosen(choice:"artifact") and not chosen(choice:"multicolor") then (
-        pin_line_image := trim( "a" )
-    ) else if color_count == 1 then (
-        pin_line_image := trim( colors )
+        pin_line_image := pinline( "a" )
+    ) else if colors == "c" and not chosen(choice:"multicolor") then (
+        pin_line_image := pinline( colors )
+    ) else if color_count == 1 and not chosen(choice:"multicolor") then (
+        pin_line_image := pinline( colors )
     ) else if color_count == 2 then (
         pin_line_image := linear_blend(
-            image1: trim( colors[0] ),
-            image2: trim( colors[1] ),
+            image1: pinline( colors[0] ),
+            image2: pinline( colors[1] ),
             x1: 0.4,	y1: 0
 			x2: 0.6,	y2: 0
         )
     ) else if color_count == 3 then (
 		pin_line_image := linear_blend(
 			image1: linear_blend(
-				image1: trim(colors[0]),
-				image2: trim(colors[1]),
+				image1: pinline(colors[0]),
+				image2: pinline(colors[1]),
 				x1: 0.0, y1: 0
 				x2: 0.5, y2: 0
 			),
-			image2: trim(colors[2]),
+			image2: pinline(colors[2]),
 			x1: 0.5, y1: 0
 			x2: 1.0, y2: 0
 		)
 	) else if color_count == 4 then (
 		pin_line_image := linear_blend(
 			image1: linear_blend(
-				image1: trim(colors[0]),
-				image2: trim(colors[1]),
+				image1: pinline(colors[0]),
+				image2: pinline(colors[1]),
 				x1: 0.0, y1: 0
 				x2: 0.33, y2: 0
 			),
 			image2: linear_blend(
-				image1: trim(colors[2]),
-				image2: trim(colors[3]),
+				image1: pinline(colors[2]),
+				image2: pinline(colors[3]),
 				x1: 0.66, y1: 0
 				x2: 1.0, y2: 0
 			),
@@ -111,26 +111,26 @@ card_pin_line := {
 		pin_line_image := linear_blend(
 			image1: linear_blend(
 				image1: linear_blend(
-					image1: trim(colors[0]),
-					image2: trim(colors[1]),
+					image1: pinline(colors[0]),
+					image2: pinline(colors[1]),
 					x1: 0.0, y1: 0
 					x2: 0.25, y2: 0
 				),
 				image2: linear_blend(
-					image1: trim(colors[2]),
-					image2: trim(colors[3]),
+					image1: pinline(colors[2]),
+					image2: pinline(colors[3]),
 					x1: 0.5, y1: 0
 					x2: 0.75, y2: 0
 				),
 				x1: 0.25, y1: 0
 				x2: 0.5, y2: 0
 			),
-			image2: trim(colors[4]),
+			image2: pinline(colors[4]),
 			x1: 0.75, y1: 0
 			x2: 1.0, y2: 0
 		)
 	) else (
-        pin_line_image := trim( colors )
+        pin_line_image := pinline( "m" )
     )
 	pin_line_image
 }
