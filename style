@@ -200,7 +200,7 @@ card style:
 		top width:    17
 		bottom width: 18
 		z index: 4
-		mask: border_mask.png
+		mask: { if contains(card.super_type, match:"Legendary") then "border_mask_legend.png" else "border_mask.png" }
 	card color:
 		left:	0
 		top:	0
@@ -367,6 +367,25 @@ extra card field:
 	script: card.card_color
 	editable: false
 	save value: false
+extra card field:
+	type: choice
+	name: legendary pin
+	script: card.card_color
+	editable: false
+	save value: false
+extra card field:
+	type: choice
+	name: legendary filter
+	script: card.card_color
+	editable: false
+	save value: false
+extra card field:
+	type: choice
+	name: trim filter
+	script: card.card_color
+	editable: false
+	save value: false
+
 
 extra card style:
 	foil layer:
@@ -460,4 +479,34 @@ extra card style:
 		render style: image
 		image: { card_pin_line() }
 		mask: pin_line.png
+	legendary pin:
+		left: 0
+		top: 0
+		width: 375
+		height: 523
+		z index: 10
+		visible: { contains(card.super_type, match:"Legendary") }
+		render style: image
+		image: { card_pin_line() }
+		mask: legend_mask.png
+	legendary filter:
+		left: 0
+		top: 0
+		width: 375
+		height: 523
+		z index: 10
+		visible: { contains(card.super_type, match:"Legendary") }
+		render style: image
+		image: legend_lightness_filter.png
+		mask: legend_mask.png
+	trim filter:
+		left: 0
+		top: 0
+		width: 375
+		height: 523
+		z index: 7
+		visible: { trim_filter_visible() }
+		render style: image
+		image: { trim_filter() }
+		mask: trim_mask.png
 

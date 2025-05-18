@@ -134,3 +134,19 @@ card_pin_line := {
     )
 	pin_line_image
 }
+
+trim_filter_visible := {
+	if contains(card.super_type, match:"Artifact") or chosen(input:"", choice:"artifact") then (
+		true
+	) else (
+		false
+	)
+}
+
+trim_filter := {
+	if contains(card.super_type, match:"Artifact") or chosen(input:"", choice:"artifact") then (
+		"artifact_trim_lightness.png"
+	) else (
+		"artifact_trim_lightness.png"
+	)
+}
